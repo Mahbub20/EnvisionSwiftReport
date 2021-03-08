@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptPatientDetails" pageWidth="420" pageHeight="595" columnWidth="380" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d61bc94e-6fa9-496b-995f-8dafebb7969d">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="318"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="670"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Swift_SQL_Adapter"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="ireport.jasperserver.url" value="https://320c6b7ef25c.ngrok.io/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/SWIFT_REPORT/RptPatientDetails_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/SWIFT_REPORT/RptPatientDetails"/>
+	<parameter name="startTime" class="java.lang.String"/>
+	<parameter name="endTime" class="java.lang.String"/>
+	<parameter name="OrgId" class="java.lang.Integer"/>
+	<parameter name="BusId" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+
+HIS_REGISTRATION.FNAME+' '+HIS_REGISTRATION.LNAME as fullName,
+HIS_REGISTRATION.DOB,
+CASE 
+WHEN HIS_REGISTRATION.GENDER='M' Then 'Male'
+WHEN HIS_REGISTRATION.GENDER='F' Then 'Female'
+ELSE 'Other'
+END as Gender
+,RIS_EXAM.EXAM_NAME,RIS_EXAM.EXAM_UID,
+RIS_ORDERDTL.CREATED_ON as AppointmentDate,RIS_EXAM.CREATED_ON as AppointmentDate2,HIS_REGISTRATION.SSN as CitizenID,RIS_ORDERDTL.QUEUE_SERIAL,
+GBL_BUS.NAME as BusName,RIS_ORDERDTL.ACCESSION_NO
+
+
+FROM RIS_EXAM 
+join RIS_ORDERDTL on RIS_EXAM.EXAM_ID = RIS_ORDERDTL.EXAM_ID
+join RIS_ORDER on RIS_ORDERDTL.ORDER_ID = RIS_ORDER.ORDER_ID
+join HIS_REGISTRATION on RIS_ORDER.REG_ID = HIS_REGISTRATION.REG_ID
+join GBL_BUS on RIS_ORDERDTL.BUS_ID = GBL_BUS.ID
+
+WHERE RIS_ORDERDTL.CREATED_ON>  $P{startTime}  and RIS_ORDERDTL.CREATED_ON< $P{endTime}  and RIS_ORDERDTL.BUS_ID=   $P{BusId}  and  RIS_ORDERDTL.ORG_ID =   $P{OrgId}  and  RIS_ORDERDTL.STATUS = 'S' ORDER BY QUEUE_SERIAL]]>
+	</queryString>
+	<field name="fullName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fullName"/>
+		<property name="com.jaspersoft.studio.field.label" value="fullName"/>
+	</field>
+	<field name="DOB" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="DOB"/>
+		<property name="com.jaspersoft.studio.field.label" value="DOB"/>
+	</field>
+	<field name="Gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="Gender"/>
+	</field>
+	<field name="EXAM_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EXAM_NAME"/>
+		<property name="com.jaspersoft.studio.field.label" value="EXAM_NAME"/>
+	</field>
+	<field name="EXAM_UID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EXAM_UID"/>
+		<property name="com.jaspersoft.studio.field.label" value="EXAM_UID"/>
+	</field>
+	<field name="AppointmentDate" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="AppointmentDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="AppointmentDate"/>
+	</field>
+	<field name="AppointmentDate2" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="AppointmentDate2"/>
+		<property name="com.jaspersoft.studio.field.label" value="AppointmentDate2"/>
+	</field>
+	<field name="CitizenID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CitizenID"/>
+		<property name="com.jaspersoft.studio.field.label" value="CitizenID"/>
+	</field>
+	<field name="QUEUE_SERIAL" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="QUEUE_SERIAL"/>
+		<property name="com.jaspersoft.studio.field.label" value="QUEUE_SERIAL"/>
+	</field>
+	<field name="BusName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BusName"/>
+		<property name="com.jaspersoft.studio.field.label" value="BusName"/>
+	</field>
+	<field name="ACCESSION_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ACCESSION_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="ACCESSION_NO"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="255" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="200" height="30" uuid="27fbf30e-98ef-4caf-aa94-ce18d592cc52"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient's Appointment Details]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="40" width="110" height="30" uuid="d2b67a8a-2e98-4332-b383-8ff3a93c5ce8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Appointment Date :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="40" width="100" height="30" uuid="e47a9fd1-06ac-46a2-b486-e04bc426cd51"/>
+				<box topPadding="2"/>
+				<textFieldExpression><![CDATA[$F{AppointmentDate}]]></textFieldExpression>
+				<patternExpression><![CDATA["dd-MM-yyyy"]]></patternExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="70" width="90" height="20" uuid="0f0f8c0d-921c-46b4-95d6-544d4c176396"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Info :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="90" width="70" height="20" uuid="2c38240c-8449-4363-9395-cf0ec0271a00"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Citizen ID  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="90" width="80" height="20" uuid="e65c4a75-848c-4a0d-aea2-a1c4a892a955"/>
+				<box topPadding="2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CitizenID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="180" y="90" width="80" height="20" uuid="74d3ccb7-6418-4bfb-b9de-a12b204f1021"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Date of Birth :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="260" y="90" width="100" height="30" uuid="ad630a7c-9788-4e96-b99c-48b46dab1071"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOB}]]></textFieldExpression>
+				<patternExpression><![CDATA["dd-MM-yyyy"]]></patternExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="108" width="69" height="25" uuid="bc966807-e62e-4f6a-b7d9-c41cc6f32634"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Full Name :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="108" width="80" height="25" uuid="19a22675-3eb5-4b1c-a6da-6ba1d22787f9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fullName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="108" width="70" height="28" uuid="57032d1e-6b37-4837-9525-14077e2b9260"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Gender   :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="260" y="107" width="100" height="30" uuid="83288200-c384-4b06-8531-f9e3b04fc999"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Gender}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="142" width="89" height="22" uuid="57d3b25d-2b44-4882-b11d-a838b5f0d744"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Study Info :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="170" width="80" height="20" uuid="e9d9c489-a96b-490a-8241-f35acccae493"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Bus Name     :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="170" width="80" height="20" uuid="4ef8b32e-9b9e-42bc-ad2b-68a14d31ec6e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BusName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="190" width="80" height="20" uuid="4c4c9b11-11cf-4725-b4bc-2669a3a30491"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Queue Serial :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="190" width="140" height="35" uuid="0f924341-31eb-44de-820a-f9603216fb43"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QUEUE_SERIAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="190" y="170" width="80" height="20" uuid="66ab2372-1adf-49ff-995a-dc783ec5b917"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Exam Code :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="170" width="100" height="30" uuid="3c2dd62d-fc64-4f3b-a5bf-19254a45405a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EXAM_UID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="190" y="192" width="80" height="18" uuid="997ebef6-aee8-4f64-b04e-0378379b6783"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Exam Name :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
